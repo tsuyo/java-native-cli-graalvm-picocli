@@ -30,6 +30,8 @@ pipelines:
         execution:
           onStart:
             - echo "[TM] onStart"
+            - ./setup_graalvm_ubuntu.sh
+            - source ~/.bashrc
             - javac -version
             - mvn -version
           onSuccess:
