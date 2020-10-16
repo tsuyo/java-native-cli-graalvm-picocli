@@ -15,3 +15,9 @@ Quick Setup -> Maven
   - Token: <github_token>
 
 # Setup (after pushing the source)
+## Pipeline Source
+- Single Branch
+  - Integration: public_github
+  - Repository Full Name: tsuyo/java-native-cli-graalvm-picocli
+  - Branch: main
+  - Pipeline Config File Filter: jfrog/pipelines\..*\.yml
