@@ -1,0 +1,14 @@
+resources:
+  # Git repo for source
+  - name: src_GitRepo
+    type: GitRepo
+    configuration:
+      path: tsuyo/java-native-cli-graalvm-picocli
+      gitProvider: public_github
+  # Build info for "mvn -Dskip=true clean install"
+  - name: mvn_pacakge_skip_image_BuildInfo
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: kirasoa_artifactory
+      buildName: mvn_pacakge_skip_image
+      buildNumber: 1

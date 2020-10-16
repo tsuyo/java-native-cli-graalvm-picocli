@@ -1,0 +1,40 @@
+apiVersion: v1.0
+pipelines:
+  - name: java-native-cli-graalvm-picocli
+    steps:
+      # see https://www.jfrog.com/confluence/display/JFROG/MvnBuild
+      - name: mvn_pacakge_skip_image
+        type: MvnBuild
+        configuration:
+          mvnCommand: -Dskip=false clean install
+          sourceLocation: .
+          configFileLocation: jfrog
+          configFileName: mvn-art-config
+          # forceXrayScan: false
+          # failOnScan: true
+          autoPublishBuildInfo: true
+
+          integrations:
+            - name: kirasoa_artifactory
+          inputResources:
+            - name: src_GitRepo
+          outputResources:
+            - name: mvn_pacakge_skip_image_BuildInfo
+          runtime:
+            type: image
+            image:
+              auto:
+                language: java
+                versions:
+                  - "11"
+        execution:
+          onStart:
+            - echo "[TM] onStart"
+            - javac -version
+            - mvn -version
+          onSuccess:
+            - echo "[TM] onSuccess"
+          onFailure:
+            - echo "[TM] onFailure"
+          onComplete:
+            - echo "[TM] onComplete"
