@@ -10,7 +10,7 @@ pipelines:
           sourceLocation: .
           configFileLocation: jfrog
           configFileName: mvn-art-config
-          # forceXrayScan: false
+          forceXrayScan: true
           # failOnScan: true
           autoPublishBuildInfo: true
 
@@ -33,7 +33,7 @@ pipelines:
             - mvn -version
           onSuccess:
             - echo "[TM] onSuccess"
-            - jfrog rt u ${res_sandbox_GitRepo_resourcePath}/target/checksum generic-local/latest/
+            - jfrog rt u ${res_src_GitRepo_resourcePath}/target/checksum generic-local/latest/
           onFailure:
             - echo "[TM] onFailure"
           onComplete:
