@@ -10,7 +10,7 @@ pipelines:
           sourceLocation: .
           configFileLocation: jfrog
           configFileName: mvn-art-config
-          forceXrayScan: true
+          # forceXrayScan: false
           # failOnScan: true
           autoPublishBuildInfo: true
 
