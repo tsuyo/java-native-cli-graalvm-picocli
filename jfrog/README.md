@@ -1,6 +1,7 @@
 # Setup (before pushing the source)
 ## Artifactory Repos
-Quick Setup -> Maven
+- Quick Setup -> Maven
+- Create "generic-local" local repo
 ## Pipelines Integration
 (Check "Any Pipeline Source" for Assing Pipelines to this Integration)
 - kirasoa_artifactory

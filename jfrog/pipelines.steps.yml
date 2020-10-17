@@ -23,19 +23,17 @@ pipelines:
           runtime:
             type: image
             image:
-              auto:
-                language: java
-                versions:
-                  - "11"
+              custom:
+                name: kirasoa/pipelines-u18graalvm
+                tag: "11"
         execution:
           onStart:
             - echo "[TM] onStart"
-            - ./setup_graalvm_ubuntu.sh
-            - source ~/.bashrc
-            - javac -version
+            - java -version
             - mvn -version
           onSuccess:
             - echo "[TM] onSuccess"
+            - jfrog rt u ${res_sandbox_GitRepo_resourcePath}/target/checksum generic-local/latest/
           onFailure:
             - echo "[TM] onFailure"
           onComplete:
