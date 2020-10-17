@@ -3,10 +3,10 @@ pipelines:
   - name: java_native_cli_graalvm_picocli
     steps:
       # see https://www.jfrog.com/confluence/display/JFROG/MvnBuild
-      - name: mvn_pacakge_skip_image
+      - name: mvn_pacakge
         type: MvnBuild
         configuration:
-          mvnCommand: -Dskip=false clean install
+          mvnCommand: -Dskip=true clean install
           sourceLocation: .
           configFileLocation: jfrog
           configFileName: mvn-art-config
@@ -31,11 +31,11 @@ pipelines:
             - echo "[TM] onStart"
             - java -version
             - mvn -version
-            - restore_cache_files m2_cache ${HOME}/.m2
+            # - restore_cache_files m2_cache ${HOME}/.m2
           onSuccess:
             - echo "[TM] onSuccess"
             - jfrog rt u ${res_src_GitRepo_resourcePath}/target/checksum generic-local/latest/
-            - add_cache_files ${HOME}/.m2 m2_cache
+            # - add_cache_files ${HOME}/.m2 m2_cache
           onFailure:
             - echo "[TM] onFailure"
           onComplete:
