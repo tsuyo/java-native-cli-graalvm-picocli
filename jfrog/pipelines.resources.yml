@@ -12,7 +12,7 @@ resources:
     configuration:
       sourceArtifactory: kirasoa_artifactory
       buildName: java_native_cli_graalvm_picocli_mvn
-      buildNumber: '${run_number}'
+      # buildNumber: '${run_number}'
 
   # Build info for "mvn -Dskip=true clean install"
   - name: mvn_skip_image_BuildInfo
@@ -20,7 +20,7 @@ resources:
     configuration:
       sourceArtifactory: kirasoa_artifactory
       buildName: java_native_cli_graalvm_picocli_mvn_skip_image
-      buildNumber: '${run_number}'
+      # buildNumber: '${run_number}'
 
   # Build info for staging
   - name: mvn_staging_BuildInfo
@@ -28,7 +28,7 @@ resources:
     configuration:
       sourceArtifactory: kirasoa_artifactory
       buildName: java_native_cli_graalvm_picocli_mvn
-      buildNumber: '${run_number}'
+      # buildNumber: '${run_number}'
 
   # Build info for release
   - name: mvn_release_BuildInfo
@@ -36,7 +36,7 @@ resources:
     configuration:
       sourceArtifactory: kirasoa_artifactory
       buildName: java_native_cli_graalvm_picocli_mvn
-      buildNumber: '${run_number}'
+      # buildNumber: '${run_number}'
 
   # Build info for checksum
   - name: checksum_dev_BuildInfo
@@ -44,7 +44,7 @@ resources:
     configuration:
       sourceArtifactory: kirasoa_artifactory
       buildName: checksum
-      buildNumber: '${run_number}'
+      # buildNumber: '${run_number}'
 
   # Build info for checksum
   - name: checksum_qa_BuildInfo
@@ -52,7 +52,7 @@ resources:
     configuration:
       sourceArtifactory: kirasoa_artifactory
       buildName: checksum
-      buildNumber: '${run_number}'
+      # buildNumber: '${run_number}'
 
   # Build info for checksum
   - name: checksum_prod_BuildInfo
@@ -60,4 +60,4 @@ resources:
     configuration:
       sourceArtifactory: kirasoa_artifactory
       buildName: checksum
-      buildNumber: '${run_number}'
+      # buildNumber: '${run_number}'
