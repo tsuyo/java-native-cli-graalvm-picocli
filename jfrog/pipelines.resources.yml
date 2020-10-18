@@ -24,5 +24,13 @@ resources:
     type: BuildInfo
     configuration:
       sourceArtifactory: kirasoa_artifactory
-      buildName: java_native_cli_graalvm_picocli_mvn_scan
+      buildName: java_native_cli_graalvm_picocli_mvn
+      buildNumber: 1
+
+  # Build info for "mvn -Dskip=false clean install"
+  - name: mvn_promoted_BuildInfo
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: kirasoa_artifactory
+      buildName: java_native_cli_graalvm_picocli_mvn
       buildNumber: 1

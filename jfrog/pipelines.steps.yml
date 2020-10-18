@@ -29,13 +29,13 @@ pipelines:
         execution:
           onStart:
             - echo "[TM] onStart"
+            - restore_cache_files m2_cache ${HOME}/.m2
             - java -version
             - mvn -version
-            - restore_cache_files m2_cache ${HOME}/.m2
           onSuccess:
             - echo "[TM] onSuccess"
-            - jfrog rt u ${res_src_GitRepo_resourcePath}/target/checksum generic-local/latest/
             - add_cache_files ${HOME}/.m2 m2_cache
+            - jfrog rt u ${res_src_GitRepo_resourcePath}/target/checksum generic-local/latest/
           onFailure:
             - echo "[TM] onFailure"
           onComplete:
@@ -48,5 +48,21 @@ pipelines:
           inputResources:
             - name: mvn_BuildInfo
               trigger: true
+          # outputResources:
+          #   - name: mvn_scan_BuildInfo
+
+      - name: promote
+        type: PromoteBuild
+        configuration:
+          targetRepository: libs-release-local
+          includeDependencies: false
+          status: RELEASE
+          comment: ready to release
+          # copy: false
+          inputResources:
+            - name: mvn_BuildInfo
+              trigger: true
+          inputSteps:
+            - name: scan_mvn
           outputResources:
-            - name: mvn_scan_BuildInfo
+            - name: mvn_promoted_BuildInfo
