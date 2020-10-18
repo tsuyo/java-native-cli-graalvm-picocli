@@ -46,7 +46,7 @@ pipelines:
         configuration:
           failOnScan: true
           inputResources:
-            - name: mvn_scan_BuildInfo
+            - name: mvn_BuildInfo
               trigger: true
           # outputResources:
           #   - name: java_native_cli_graalvm_picocli_mvn_scan
