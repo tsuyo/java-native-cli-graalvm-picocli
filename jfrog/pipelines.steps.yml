@@ -41,15 +41,15 @@ pipelines:
           onComplete:
             - echo "[TM] onComplete"
 
-      - name: scan_mvn
-        type: XrayScan
-        configuration:
-          failOnScan: true
-          inputResources:
-            - name: mvn_BuildInfo
-              trigger: true
-          # outputResources:
-          #   - name: mvn_scan_BuildInfo
+      # - name: scan_mvn
+      #   type: XrayScan
+      #   configuration:
+      #     failOnScan: true
+      #     inputResources:
+      #       - name: mvn_BuildInfo
+      #         trigger: true
+      #     # outputResources:
+      #     #   - name: mvn_scan_BuildInfo
 
       - name: promote
         type: PromoteBuild
@@ -63,6 +63,6 @@ pipelines:
             - name: mvn_BuildInfo
               trigger: true
           inputSteps:
-            - name: scan_mvn
+            - name: mvn_install
           outputResources:
             - name: mvn_promoted_BuildInfo
