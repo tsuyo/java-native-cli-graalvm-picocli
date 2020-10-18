@@ -56,8 +56,6 @@ pipelines:
         configuration:
           inputSteps:
             - name: mvn_install
-          outputResources:
-            - name: mvn_staging_BuildInfo
         execution:
           onExecute:
             - echo "executing integration test"
@@ -77,3 +75,28 @@ pipelines:
             - name: test_before_staging
           outputResources:
             - name: mvn_staging_BuildInfo
+
+      - name: test_before_release
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: promote_to_staging
+        execution:
+          onExecute:
+            - echo "executing UAT"
+
+      - name: promote_to_release
+        type: PromoteBuild
+        configuration:
+          targetRepository: libs-release-local
+          includeDependencies: false
+          status: RELEASE
+          comment: UAT passed
+          # copy: false
+          inputResources:
+            - name: mvn_staging_BuildInfo
+              trigger: true
+          inputSteps:
+            - name: test_before_release
+          outputResources:
+            - name: mvn_release_BuildInfo            
