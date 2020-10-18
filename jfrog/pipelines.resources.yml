@@ -5,10 +5,24 @@ resources:
     configuration:
       path: tsuyo/java-native-cli-graalvm-picocli
       gitProvider: public_github
-  # Build info for "mvn -Dskip=true clean install"
-  - name: mvn_pacakge_skip_image_BuildInfo
+  # Build info for "mvn -Dskip=false clean install"
+  - name: mvn_BuildInfo
     type: BuildInfo
     configuration:
       sourceArtifactory: kirasoa_artifactory
-      buildName: mvn_pacakge_skip_image
+      buildName: java_native_cli_graalvm_picocli_mvn
+      buildNumber: 1
+  # Build info for "mvn -Dskip=true clean install"
+  - name: mvn_skip_image_BuildInfo
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: kirasoa_artifactory
+      buildName: java_native_cli_graalvm_picocli_mvn_skip_image
+      buildNumber: 1
+  # Build info for "mvn -Dskip=false clean install"
+  - name: mvn_scan_BuildInfo
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: kirasoa_artifactory
+      buildName: java_native_cli_graalvm_picocli_mvn_scan
       buildNumber: 1
