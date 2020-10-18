@@ -18,6 +18,7 @@ pipelines:
             - name: kirasoa_artifactory
           inputResources:
             - name: src_GitRepo
+            - name: checksum_dev_BuildInfo
           outputResources:
             - name: mvn_BuildInfo
           runtime:
