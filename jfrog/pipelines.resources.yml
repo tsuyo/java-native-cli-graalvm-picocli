@@ -38,8 +38,24 @@ resources:
       buildName: java_native_cli_graalvm_picocli_mvn
       buildNumber: '${run_number}'
 
-  # Build info for binary
-  - name: checksum_BuildInfo
+  # Build info for checksum
+  - name: checksum_dev_BuildInfo
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: kirasoa_artifactory
+      buildName: checksum
+      buildNumber: '${run_number}'
+
+  # Build info for checksum
+  - name: checksum_qa_BuildInfo
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: kirasoa_artifactory
+      buildName: checksum
+      buildNumber: '${run_number}'
+
+  # Build info for checksum
+  - name: checksum_prod_BuildInfo
     type: BuildInfo
     configuration:
       sourceArtifactory: kirasoa_artifactory

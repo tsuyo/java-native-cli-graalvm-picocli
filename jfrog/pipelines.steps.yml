@@ -36,8 +36,8 @@ pipelines:
             - echo "[TM] onSuccess"
             - add_cache_files ${HOME}/.m2 m2_cache
             # TODO: revert to target/checksum
-            - jfrog rt u ${res_src_GitRepo_resourcePath}/jfrog/checksum generic-local/latest/ --build-name=${res_mvn_BuildInfo_buildName} --build-number=${res_mvn_BuildInfo_buildNumber}
-            - jfrog rt bp ${res_mvn_BuildInfo_buildName} ${res_mvn_BuildInfo_buildNumber}
+            - jfrog rt u ${res_src_GitRepo_resourcePath}/jfrog/checksum generic-dev-local/latest/ --build-name=${res_checksum_dev_BuildInfo_buildName} --build-number=${res_checksum_dev_BuildInfo_buildNumber}
+            - jfrog rt bp ${res_checksum_dev_BuildInfo_buildName} ${res_checksum_dev_BuildInfo_buildNumber}
           onFailure:
             - echo "[TM] onFailure"
           onComplete:
@@ -53,52 +53,52 @@ pipelines:
       #     # outputResources:
       #     #   - name: mvn_scan_BuildInfo
 
-      - name: test_for_staging
+      - name: test_pre_qa
         type: Bash
         configuration:
           inputSteps:
             - name: mvn_install
         execution:
           onExecute:
-            - echo "executing integration test"
+            - echo "executing test pre qa"
 
-      - name: promote_to_staging
+      - name: promote_to_qa
         type: PromoteBuild
         configuration:
-          targetRepository: libs-staging-local
+          targetRepository: generic-qa-local
           includeDependencies: false
-          status: STAGING
-          comment: integration tests passed
+          status: QA
+          comment: test pre qa passed
           # copy: false
           inputResources:
-            - name: mvn_BuildInfo
+            - name: checksum_dev_BuildInfo
               trigger: true
           inputSteps:
-            - name: test_for_staging
+            - name: test_pre_qa
           outputResources:
-            - name: mvn_staging_BuildInfo
+            - name: checksum_qa_BuildInfo
 
-      - name: test_for_release
+      - name: test_pre_prod
         type: Bash
         configuration:
           inputSteps:
-            - name: promote_to_staging
+            - name: promote_to_qa
         execution:
           onExecute:
-            - echo "executing UAT"
+            - echo "executing test pre prod"
 
-      - name: promote_to_release
+      - name: promote_to_prod
         type: PromoteBuild
         configuration:
-          targetRepository: libs-release-local
+          targetRepository: generic-prod-local
           includeDependencies: false
-          status: RELEASE
-          comment: UAT passed
+          status: PROD
+          comment: test pre prod passed
           # copy: false
           inputResources:
-            - name: mvn_staging_BuildInfo
+            - name: checksum_qa_BuildInfo
               trigger: true
           inputSteps:
-            - name: test_for_release
+            - name: test_pre_prod
           outputResources:
-            - name: mvn_release_BuildInfo            
+            - name: checksum_prod_BuildInfo

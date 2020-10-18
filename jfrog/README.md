@@ -1,11 +1,13 @@
 # Setup (before pushing the source)
 ## Artifactory Repos
 - Quick Setup -> Maven
-  - Check "Handle Snapshots" in "libs-release-local"
-- Create "libs-staging-local" local repo
+<!-- - Check "Handle Snapshots" in "libs-release-local" -->
+<!-- - Create "libs-staging-local" local repo
   - Package Type: maven
-  - Repository Key: libs-staging-local
-- Create "generic-local" local repo
+  - Repository Key: libs-staging-local -->
+- Create "generic-dev-local" local repo
+- Create "generic-qa-local" local repo
+- Create "generic-prod-local" local repo
 ## Pipelines Integration
 (Check "Any Pipeline Source" for Assing Pipelines to this Integration)
 - kirasoa_artifactory
