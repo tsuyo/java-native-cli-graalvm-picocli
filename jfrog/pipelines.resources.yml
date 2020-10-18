@@ -37,3 +37,11 @@ resources:
       sourceArtifactory: kirasoa_artifactory
       buildName: java_native_cli_graalvm_picocli_mvn
       buildNumber: '${run_number}'
+
+  # Build info for binary
+  - name: checksum_BuildInfo
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: kirasoa_artifactory
+      buildName: checksum
+      buildNumber: '${run_number}'
