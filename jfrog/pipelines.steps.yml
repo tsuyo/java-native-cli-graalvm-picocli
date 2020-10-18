@@ -51,18 +51,29 @@ pipelines:
       #     # outputResources:
       #     #   - name: mvn_scan_BuildInfo
 
-      - name: promote
+      - name: test_before_staging
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: mvn_install
+          outputResources:
+            - name: mvn_staging_BuildInfo
+        execution:
+          onExecute:
+            - echo "executing integration test"
+
+      - name: promote_to_staging
         type: PromoteBuild
         configuration:
-          targetRepository: libs-release-local
+          targetRepository: libs-staging-local
           includeDependencies: false
-          status: RELEASE
-          comment: ready to release
+          status: STAGING
+          comment: integration tests passed
           # copy: false
           inputResources:
             - name: mvn_BuildInfo
               trigger: true
           inputSteps:
-            - name: mvn_install
+            - name: test_before_staging
           outputResources:
-            - name: mvn_promoted_BuildInfo
+            - name: mvn_staging_BuildInfo
