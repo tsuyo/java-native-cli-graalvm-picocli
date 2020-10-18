@@ -37,6 +37,7 @@ pipelines:
             - add_cache_files ${HOME}/.m2 m2_cache
             # TODO: revert to target/checksum
             - jfrog rt u ${res_src_GitRepo_resourcePath}/jfrog/checksum generic-local/latest/ --build-name=${res_mvn_BuildInfo_buildName} --build-number=${res_mvn_BuildInfo_buildNumber}
+            - jfrog rt bp ${res_mvn_BuildInfo_buildName} ${res_mvn_BuildInfo_buildNumber}
           onFailure:
             - echo "[TM] onFailure"
           onComplete:
