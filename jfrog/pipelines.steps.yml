@@ -35,7 +35,8 @@ pipelines:
           onSuccess:
             - echo "[TM] onSuccess"
             - add_cache_files ${HOME}/.m2 m2_cache
-            - jfrog rt u ${res_src_GitRepo_resourcePath}/target/checksum generic-local/latest/ --build-name=${res_mvn_BuildInfo_buildName} --build-number=${res_mvn_BuildInfo_buildNumber}
+            # TODO: revert to target/checksum
+            - jfrog rt u ${res_src_GitRepo_resourcePath}/jfrog/checksum generic-local/latest/ --build-name=${res_mvn_BuildInfo_buildName} --build-number=${res_mvn_BuildInfo_buildNumber}
           onFailure:
             - echo "[TM] onFailure"
           onComplete:
@@ -51,7 +52,7 @@ pipelines:
       #     # outputResources:
       #     #   - name: mvn_scan_BuildInfo
 
-      - name: integration_test
+      - name: test_for_staging
         type: Bash
         configuration:
           inputSteps:
@@ -72,11 +73,11 @@ pipelines:
             - name: mvn_BuildInfo
               trigger: true
           inputSteps:
-            - name: test_before_staging
+            - name: test_for_staging
           outputResources:
             - name: mvn_staging_BuildInfo
 
-      - name: UAT
+      - name: test_for_release
         type: Bash
         configuration:
           inputSteps:
@@ -97,6 +98,6 @@ pipelines:
             - name: mvn_staging_BuildInfo
               trigger: true
           inputSteps:
-            - name: test_before_release
+            - name: test_for_release
           outputResources:
             - name: mvn_release_BuildInfo            
