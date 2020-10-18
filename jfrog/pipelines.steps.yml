@@ -41,12 +41,12 @@ pipelines:
           onComplete:
             - echo "[TM] onComplete"
 
-        - name: scan_mvn_pacakge
-          type: XrayScan
-          configuration:
-            failOnScan: true
-            inputResources:
-              - name: java_native_cli_graalvm_picocli_mvn
-                trigger: true
-            # outputResources:
-            #   - name: java_native_cli_graalvm_picocli_mvn_scan
+      - name: scan_mvn_pacakge
+        type: XrayScan
+        configuration:
+          failOnScan: true
+          inputResources:
+            - name: java_native_cli_graalvm_picocli_mvn
+              trigger: true
+          # outputResources:
+          #   - name: java_native_cli_graalvm_picocli_mvn_scan
