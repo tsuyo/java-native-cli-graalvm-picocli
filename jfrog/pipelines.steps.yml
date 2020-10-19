@@ -20,7 +20,7 @@ pipelines:
             - name: src_GitRepo
             # - name: checksum_dev_BuildInfo
           outputResources:
-            - name: mvn_BuildInfo
+            - name: mvn_dev_BuildInfo
           runtime:
             type: image
             image:
