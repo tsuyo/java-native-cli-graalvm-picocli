@@ -6,7 +6,7 @@ pipelines:
       - name: mvn_install
         type: MvnBuild
         configuration:
-          mvnCommand: -Dskip=true clean install # TODO: revert to -Dskip=false
+          mvnCommand: -Dskip=false clean install # TODO: revert to -Dskip=false
           sourceLocation: .
           configFileLocation: jfrog
           configFileName: mvn-art-config
@@ -36,9 +36,9 @@ pipelines:
           onSuccess:
             - echo "[TM] onSuccess"
             - add_cache_files ${HOME}/.m2 m2_cache
-            # TODO: revert to target/checksum
             # - jfrog rt u ${res_src_GitRepo_resourcePath}/jfrog/checksum generic-local/latest/ --build-name=${res_checksum_dev_BuildInfo_buildName} --build-number=${res_checksum_dev_BuildInfo_buildNumber}
-            - jfrog rt u ${res_src_GitRepo_resourcePath}/jfrog/checksum generic-local/latest/
+            # - jfrog rt u ${res_src_GitRepo_resourcePath}/jfrog/checksum generic-local/latest/
+            - jfrog rt u ${res_src_GitRepo_resourcePath}/target/checksum generic-local/latest/
             # - jfrog rt bp ${res_checksum_dev_BuildInfo_buildName} ${res_checksum_dev_BuildInfo_buildNumber}
           onFailure:
             - echo "[TM] onFailure"
