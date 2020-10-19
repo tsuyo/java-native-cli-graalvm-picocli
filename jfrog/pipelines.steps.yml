@@ -12,7 +12,7 @@ pipelines:
           configFileName: mvn-art-config
           forceXrayScan: false
           # failOnScan: true
-          autoPublishBuildInfo: true
+          autoPublishBuildInfo: false
 
           integrations:
             - name: kirasoa_artifactory
@@ -20,8 +20,7 @@ pipelines:
             - name: src_GitRepo
             # - name: checksum_dev_BuildInfo
           outputResources:
-            # - name: mvn_BuildInfo
-            - name: checksum_dev_BuildInfo
+            - name: mvn_BuildInfo
           runtime:
             type: image
             image:
@@ -38,8 +37,9 @@ pipelines:
             - echo "[TM] onSuccess"
             - add_cache_files ${HOME}/.m2 m2_cache
             # TODO: revert to target/checksum
-            - jfrog rt u ${res_src_GitRepo_resourcePath}/jfrog/checksum generic-dev-local/latest/ --build-name=${res_checksum_dev_BuildInfo_buildName} --build-number=${res_checksum_dev_BuildInfo_buildNumber}
-            - jfrog rt bp ${res_checksum_dev_BuildInfo_buildName} ${res_checksum_dev_BuildInfo_buildNumber}
+            # - jfrog rt u ${res_src_GitRepo_resourcePath}/jfrog/checksum generic-local/latest/ --build-name=${res_checksum_dev_BuildInfo_buildName} --build-number=${res_checksum_dev_BuildInfo_buildNumber}
+            - jfrog rt u ${res_src_GitRepo_resourcePath}/jfrog/checksum generic-local/latest/
+            # - jfrog rt bp ${res_checksum_dev_BuildInfo_buildName} ${res_checksum_dev_BuildInfo_buildNumber}
           onFailure:
             - echo "[TM] onFailure"
           onComplete:
@@ -67,18 +67,18 @@ pipelines:
       - name: promote_to_qa
         type: PromoteBuild
         configuration:
-          targetRepository: generic-qa-local
+          targetRepository: mvn-qa-local
           includeDependencies: false
           status: QA
           comment: test pre qa passed
           # copy: false
           inputResources:
-            - name: checksum_dev_BuildInfo
+            - name: mvn_dev_BuildInfo
               trigger: true
           inputSteps:
             - name: test_pre_qa
           outputResources:
-            - name: checksum_qa_BuildInfo
+            - name: mvn_qa_BuildInfo
 
       - name: test_pre_prod
         type: Bash
@@ -92,15 +92,15 @@ pipelines:
       - name: promote_to_prod
         type: PromoteBuild
         configuration:
-          targetRepository: generic-prod-local
+          targetRepository: mvn-prod-local
           includeDependencies: false
           status: PROD
           comment: test pre prod passed
           # copy: false
           inputResources:
-            - name: checksum_qa_BuildInfo
+            - name: mvn_qa_BuildInfo
               trigger: true
           inputSteps:
             - name: test_pre_prod
           outputResources:
-            - name: checksum_prod_BuildInfo
+            - name: mvn_prod_BuildInfo
