@@ -12,7 +12,7 @@ pipelines:
           configFileName: mvn-art-config
           forceXrayScan: false
           # failOnScan: true
-          autoPublishBuildInfo: false
+          autoPublishBuildInfo: true
 
           integrations:
             - name: kirasoa_artifactory
