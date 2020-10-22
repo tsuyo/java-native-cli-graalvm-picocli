@@ -12,6 +12,6 @@ $ mvn clean install
 $ cd java-native-cli-graalvm-picocli
 $ mvn -Dskip=true -Dbuildhelper.skipAttach=true clean install
 ```
-You can get a native binary image ("checksum") under target/ directory.
+You can get a native binary image ("checksum") under target/ directory
 
 All your artifacts are also under ${HOME}/.m2/repository/dev/tsuyo/java-native-cli-graalvm-picocli/1.0-SNAPSHOT/
