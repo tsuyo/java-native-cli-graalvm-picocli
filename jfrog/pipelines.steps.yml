@@ -19,9 +19,8 @@ pipelines:
             - name: kirasoa_artifactory
           inputResources:
             - name: src_GitRepo
-            # - name: checksum_dev_BuildInfo
           outputResources:
-            - name: mvn_BuildInfo
+            - name: mvn_dev_BuildInfo
           runtime:
             type: image
             image:
@@ -37,24 +36,10 @@ pipelines:
           onSuccess:
             - echo "[TM] onSuccess"
             - add_cache_files ${HOME}/.m2 m2_cache
-            # - jfrog rt u ${res_src_GitRepo_resourcePath}/jfrog/checksum generic-local/latest/ --build-name=${res_checksum_dev_BuildInfo_buildName} --build-number=${res_checksum_dev_BuildInfo_buildNumber}
-            # - jfrog rt u ${res_src_GitRepo_resourcePath}/jfrog/checksum generic-local/latest/
-            # - jfrog rt u ${res_src_GitRepo_resourcePath}/target/checksum generic-local/latest/
-            # - jfrog rt bp ${res_checksum_dev_BuildInfo_buildName} ${res_checksum_dev_BuildInfo_buildNumber}
           onFailure:
             - echo "[TM] onFailure"
           onComplete:
             - echo "[TM] onComplete"
-
-      # - name: scan_mvn
-      #   type: XrayScan
-      #   configuration:
-      #     failOnScan: true
-      #     inputResources:
-      #       - name: mvn_BuildInfo
-      #         trigger: true
-      #     # outputResources:
-      #     #   - name: mvn_scan_BuildInfo
 
       - name: test_pre_qa
         type: Bash
@@ -74,12 +59,12 @@ pipelines:
           comment: test pre qa passed
           # copy: false
           inputResources:
-            - name: mvn_BuildInfo
+            - name: mvn_dev_BuildInfo
               trigger: true
           inputSteps:
             - name: test_pre_qa
           outputResources:
-            - name: mvn_BuildInfo
+            - name: mvn_qa_BuildInfo
 
       - name: test_pre_prod
         type: Bash
@@ -99,9 +84,9 @@ pipelines:
           comment: test pre prod passed
           # copy: false
           inputResources:
-            - name: mvn_BuildInfo
+            - name: mvn_qa_BuildInfo
               trigger: true
           inputSteps:
             - name: test_pre_prod
           outputResources:
-            - name: mvn_BuildInfo
+            - name: mvn_prod_BuildInfo
