@@ -6,7 +6,8 @@ pipelines:
       - name: mvn_install
         type: MvnBuild
         configuration:
-          mvnCommand: -Dskip=true clean install # TODO: revert to -Dskip=false
+          mvnCommand: clean install
+          # mvnCommand: -Dskip=true -Dbuildhelper.skipAttach=true clean install # skip creating a native image
           sourceLocation: .
           configFileLocation: jfrog
           configFileName: mvn-art-config
