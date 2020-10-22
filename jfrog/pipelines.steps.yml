@@ -21,7 +21,7 @@ pipelines:
             - name: src_GitRepo
             # - name: checksum_dev_BuildInfo
           outputResources:
-            - name: mvn_dev_BuildInfo
+            - name: mvn_BuildInfo
           runtime:
             type: image
             image:
@@ -74,12 +74,12 @@ pipelines:
           comment: test pre qa passed
           # copy: false
           inputResources:
-            - name: mvn_dev_BuildInfo
+            - name: mvn_BuildInfo
               trigger: true
           inputSteps:
             - name: test_pre_qa
           outputResources:
-            - name: mvn_qa_BuildInfo
+            - name: mvn_BuildInfo
 
       - name: test_pre_prod
         type: Bash
@@ -99,9 +99,9 @@ pipelines:
           comment: test pre prod passed
           # copy: false
           inputResources:
-            - name: mvn_qa_BuildInfo
+            - name: mvn_BuildInfo
               trigger: true
           inputSteps:
             - name: test_pre_prod
           outputResources:
-            - name: mvn_prod_BuildInfo
+            - name: mvn_BuildInfo
